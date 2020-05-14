@@ -10,7 +10,8 @@ var cors = require("cors");
 const app = express();
 
 const mongoURL =
-  process.env.MONGO_URL || "mongodb://localhost:27017/express-mongoose-demo";
+  process.env.MONGO_URL ||
+  "mongodb+srv://Basma:Basma@cluster0-c2omc.mongodb.net/database?retryWrites=true&w=majority";
 const port = process.env.PORT || 3001;
 mongoose
   .connect(mongoURL, {
