@@ -9,15 +9,10 @@ const cartsRoutser = require("./routes/carts");
 var cors = require("cors");
 const app = express();
 
-<<<<<<< HEAD
 const mongoURL =
   process.env.MONGO_URL ||
   "mongodb+srv://Basma:Basma@cluster0-c2omc.mongodb.net/database?retryWrites=true&w=majority";
 const port = process.env.PORT || 3001;
-=======
-const mongoURL = process.env.MONGO_URL || 'mongodb+srv://Basma:Basma@cluster0-c2omc.mongodb.net/database?retryWrites=true&w=majority';
-const port = process.env.PORT || 3000;
->>>>>>> 6c637564e1c18612206f1fbe1d53256935e18b98
 mongoose
   .connect(mongoURL, {
     useNewUrlParser: true,
