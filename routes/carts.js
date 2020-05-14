@@ -2,9 +2,9 @@ const express = require("express");
 const Cart = require("../models/cart");
 const User = require("../models/user");
 const Product = require("../models/product");
-const CheckToken = require("../midlware/Auth");
-const validateObjectId = require("../helpers/validateObjectId");
-const validateCart = require("../helpers/validateCart");
+const CheckToken = require("../midlware/auth");
+const validateObjectId = require("../helpers/validateobjectid");
+const validateCart = require("../helpers/validatecart");
 
 const router = express.Router();
 
@@ -14,7 +14,7 @@ router.get("/user/:id", CheckToken, async (req, res) => {
   const { error } = validateObjectId(req.params.id);
   if (error) return res.status(400).send("User id is not valid");
   const cart = await Cart.find({
-    userId: id
+    userId: id,
   });
   if (!cart) return res.status(404).send("Cart is not found for this user.");
   res.status(200).send(cart);
@@ -34,7 +34,7 @@ router.post("/user/:id", [CheckToken, validateCart], async (req, res) => {
   const product = await Product.findById(req.body.productsList[0].productId);
   if (!product) return res.status(400).send("Product is not found");
 
-  const indexFound = userCart.productsList.findIndex(item => {
+  const indexFound = userCart.productsList.findIndex((item) => {
     return item.productId == req.body.productsList[0].productId;
   });
 
@@ -55,17 +55,15 @@ router.post("/user/:id", [CheckToken, validateCart], async (req, res) => {
     if (product.quantity - req.body.productsList[0].quantity >= 0) {
       userCart.productsList.push({
         productId: req.body.productsList[0].productId,
-        quantity: req.body.productsList[0].quantity
+        quantity: req.body.productsList[0].quantity,
       });
       product.quantity = product.quantity - req.body.productsList[0].quantity;
     } else {
       //products < desired qty
       return res.status(400).send("More than available quantity");
     }
-  }
-  else{
+  } else {
     return res.status(400).send("More than available quantity");
-
   }
 
   await userCart.save();
@@ -93,7 +91,7 @@ router.delete(
     const product = await Product.findById(req.params.productId);
     if (!product) return res.status(400).send("Product ID is not found");
 
-    const indexFound = cart[0].productsList.findIndex(item => {
+    const indexFound = cart[0].productsList.findIndex((item) => {
       return item.productId == req.params.productId;
     });
     if (indexFound !== -1) {
@@ -112,28 +110,22 @@ router.delete(
 );
 
 //Checkout => Empty Cart
-router.get(
-  "/user/:id/checkout",
-  [CheckToken],
-  async (req, res) => {
-    const { id } = req.params;
-    const { error } = validateObjectId(req.params.id);
-    if (error) return res.status(400).send("User id is not valid");
+router.get("/user/:id/checkout", [CheckToken], async (req, res) => {
+  const { id } = req.params;
+  const { error } = validateObjectId(req.params.id);
+  if (error) return res.status(400).send("User id is not valid");
 
-    const user = await User.findById(id);
-    if (!user) return res.status(400).send("User is not found");
+  const user = await User.findById(id);
+  if (!user) return res.status(400).send("User is not found");
 
-    let cart = await Cart.find({ userId: id });
-    if (!cart) return res.status(400).send("User's cart is not found");
+  let cart = await Cart.find({ userId: id });
+  if (!cart) return res.status(400).send("User's cart is not found");
 
+  cart[0].productsList.splice(0, cart[0].productsList.length);
 
-    cart[0].productsList.splice(0, cart[0].productsList.length);
+  await cart[0].save();
 
-
-    await cart[0].save();
-
-    res.status(200).send(cart);
-  }
-);
+  res.status(200).send(cart);
+});
 
 module.exports = router;
