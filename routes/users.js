@@ -4,9 +4,9 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const Cart = require("../models/cart");
 const Order = require("../models/order");
-const validateUser = require("../helpers/validateUser");
-const validateObjectId = require("../helpers/validateObjectID");
-const validateEmail = require("../helpers/validateEmail");
+const validateUser = require("../helpers/validateuser");
+const validateObjectId = require("../helpers/validateobjectid");
+const validateEmail = require("../helpers/validateemail");
 const CheckToken = require("../midlware/auth");
 
 const multer = require("multer");

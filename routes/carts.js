@@ -3,8 +3,8 @@ const Cart = require("../models/cart");
 const User = require("../models/user");
 const Product = require("../models/product");
 const CheckToken = require("../midlware/auth");
-const validateObjectId = require("../helpers/validateObjectId");
-const validateCart = require("../helpers/validateCart");
+const validateObjectId = require("../helpers/validateobjectid");
+const validateCart = require("../helpers/validatecart");
 
 const router = express.Router();
 

@@ -3,9 +3,9 @@ const User = require("../models/user");
 const Product = require("../models/product");
 const Order = require("../models/order");
 const Cart = require("../models/cart");
-const validateOrder = require("../helpers/validateOrder");
+const validateOrder = require("../helpers/validateorder");
 const CheckToken = require("../midlware/auth");
-const validateObjectId = require("../helpers/validateObjectID");
+const validateObjectId = require("../helpers/validateobjectid");
 const router = express.Router();
 
 //view admin orders
