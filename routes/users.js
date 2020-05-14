@@ -118,7 +118,7 @@ router.post("/login", async (req, res) => {
       payload,
       "secret",
       {
-        expiresIn: 10000,
+        expiresIn: "24h",
       },
       (error, token) => {
         if (error) return res.statusCode(400).send("error in token creation");

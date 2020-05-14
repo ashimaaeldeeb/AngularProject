@@ -9,10 +9,11 @@ const cartsRoutser = require("./routes/carts");
 var cors = require("cors");
 const app = express();
 
-// const mongoURL = process.env.MONGO_URL || 'mongodb://localhost:27017/express-mongoose-demo';
-const port = process.env.PORT || 3000;
+const mongoURL =
+  process.env.MONGO_URL || "mongodb://localhost:27017/express-mongoose-demo";
+const port = process.env.PORT || 3001;
 mongoose
-  .connect("mongodb://localhost:27017/database", {
+  .connect(mongoURL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
