@@ -43,8 +43,8 @@ router.post("/user/:id", [CheckToken, validateCart], async (req, res) => {
     if (product.quantity - req.body.productsList[0].quantity >= 0) {
       //available enough qty
       userCart.productsList[indexFound].quantity = //plus in userCart
-        userCart.productsList[indexFound].quantity +
-        req.body.productsList[0].quantity;
+        parseInt(userCart.productsList[indexFound].quantity) +
+        parseInt(req.body.productsList[0].quantity);
       product.quantity = product.quantity - req.body.productsList[0].quantity; //minus in products
     } else {
       //products < desired qty

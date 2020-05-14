@@ -13,6 +13,7 @@ const mongoURL =
   process.env.MONGO_URL ||
   "mongodb+srv://Basma:Basma@cluster0-c2omc.mongodb.net/database?retryWrites=true&w=majority";
 const port = process.env.PORT || 3001;
+
 mongoose
   .connect(mongoURL, {
     useNewUrlParser: true,
